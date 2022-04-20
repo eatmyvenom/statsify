@@ -1,5 +1,5 @@
 import { Logger } from '@statsify/logger';
-import { readFile, writeFile } from 'fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import type { RestClient } from 'tiny-discord';
 import type { CommandResolvable } from './command.resolvable';
 

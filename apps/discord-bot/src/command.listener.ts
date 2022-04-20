@@ -87,7 +87,7 @@ export class CommandListener extends AbstractCommandListener {
     command: CommandResolvable,
     data: any
   ): [command: CommandResolvable, data: any] {
-    if (!data.options || !data.options.length) return [command, data];
+    if (!data.options || data.options.length === 0) return [command, data];
 
     const firstOption = data.options[0];
 

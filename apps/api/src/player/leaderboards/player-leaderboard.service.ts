@@ -98,9 +98,9 @@ export class PlayerLeaderboardService {
 
     const pipeline = this.redis.pipeline();
 
-    fields.forEach((field) => {
+    for (const field of fields) {
       pipeline.zrevrank(`${Player.name.toLowerCase()}.${field}`, shortUuid);
-    });
+    }
 
     const responses = await pipeline.exec();
 
@@ -132,25 +132,25 @@ export class PlayerLeaderboardService {
 
     const flatPlayers = players.map((player, index) => {
       const flat = flatten(player);
-      selector.forEach((key) => {
+      for (const key of selector) {
         if (!flat[key]) {
           pipeline.zscore(`${name}.${key}`, uuids[index]);
           requests.push([index, key]);
         }
-      });
+      }
 
       return flat;
     });
 
     const responses = await pipeline.exec();
 
-    responses.forEach((response, ind) => {
+    for (const [ind, response] of responses.entries()) {
       const [index, key] = requests[ind];
       const flatPlayer = flatPlayers[index];
 
       //@ts-ignore Typescript doesn't know what the value should be for this key; However since it is a leaderboard field it has to be a number
       flatPlayer[key] = Number(response[1] ?? 0);
-    });
+    }
 
     return flatPlayers;
   }

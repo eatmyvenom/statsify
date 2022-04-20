@@ -1,6 +1,6 @@
 import { CommandLoader, CommandPoster } from '@statsify/discord';
 import { config } from 'dotenv';
-import path from 'path';
+import path from 'node:path';
 import 'reflect-metadata';
 import { InteractionServer, RestClient, WebsocketShard } from 'tiny-discord';
 import { CommandListener } from './command.listener';

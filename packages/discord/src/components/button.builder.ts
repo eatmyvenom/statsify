@@ -1,4 +1,4 @@
-import { randomUUID } from 'crypto';
+import { randomUUID } from 'node:crypto';
 import {
   APIButtonComponent,
   APIButtonComponentWithCustomId,
@@ -40,8 +40,7 @@ export class ButtonBuilder {
   }
 
   public disable(disabled?: boolean): this {
-    if (disabled === undefined) this.data.disabled = true;
-    else this.data.disabled = disabled;
+    this.data.disabled = disabled === undefined ? true : disabled;
 
     return this;
   }

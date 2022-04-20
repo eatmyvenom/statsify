@@ -4,9 +4,9 @@ export class GeneralUtil {
   public static getChallenges({ all_time: allTime = {} }: APIData = {}) {
     let challenges = 0;
 
-    Object.values(allTime).forEach((challenge) => {
+    for (const challenge of Object.values(allTime)) {
       challenges += challenge as number;
-    });
+    }
 
     return challenges;
   }
@@ -19,16 +19,6 @@ export class GeneralUtil {
   }
 
   public static getQuests(questData: APIData = {}) {
-    let quests = 0;
-
-    Object.keys(questData).forEach((quest) => {
-      if (Object.prototype.hasOwnProperty.call(questData[quest], 'completions')) {
-        questData[quest].completions.forEach(() => {
-          quests += 1;
-        });
-      }
-    });
-
-    return quests;
+    return Object.values(questData).reduce((p, c) => p + (c?.completions?.length ?? 0), 0);
   }
 }

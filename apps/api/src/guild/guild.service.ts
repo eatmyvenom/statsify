@@ -96,49 +96,48 @@ export class GuildService {
           (acc, day, index) => ({ ...acc, [day]: cacheMember.expHistory[index] }),
           {}
         ),
-        ...member.expHistoryDays.reduce(
-          (acc, day, index) => ({ ...acc, [day]: member.expHistory[index] }),
-          {}
+        ...Object.fromEntries(
+          member.expHistoryDays.map((day, index) => [day, member.expHistory[index]])
         ),
       };
 
-      Object.entries(combinedExpHistory)
+      for (const [index, [day, exp]] of Object.entries(combinedExpHistory)
         .sort()
         .reverse()
         .slice(0, 30)
-        .forEach(([day, exp], index) => {
-          member.expHistory[index] = exp;
-          member.expHistoryDays[index] = day;
-          guildExpHistory[day] = guildExpHistory[day] ? guildExpHistory[day] + exp : exp;
+        .entries()) {
+        member.expHistory[index] = exp;
+        member.expHistoryDays[index] = day;
+        guildExpHistory[day] = guildExpHistory[day] ? guildExpHistory[day] + exp : exp;
 
-          if (index < 7) member.weekly += exp;
-          member.monthly += exp;
-        });
+        if (index < 7) member.weekly += exp;
+        member.monthly += exp;
+      }
 
       return member;
     });
 
     guild.members = await Promise.all(fetchMembers);
 
-    Object.entries(guildExpHistory)
+    for (const [index, [day, exp]] of Object.entries(guildExpHistory)
       .sort()
       .reverse()
       .slice(0, 30)
-      .forEach(([day, exp], index) => {
-        const scaled = this.scaleGexp(exp);
+      .entries()) {
+      const scaled = this.scaleGexp(exp);
 
-        guild.expHistory[index] = exp;
-        guild.expHistoryDays[index] = day;
-        guild.scaledExpHistory[index] = scaled;
+      guild.expHistory[index] = exp;
+      guild.expHistoryDays[index] = day;
+      guild.scaledExpHistory[index] = scaled;
 
-        if (index < 7) {
-          guild.weekly += exp;
-          guild.scaledWeekly += scaled;
-        }
+      if (index < 7) {
+        guild.weekly += exp;
+        guild.scaledWeekly += scaled;
+      }
 
-        guild.monthly += exp;
-        guild.scaledMonthly += scaled;
-      });
+      guild.monthly += exp;
+      guild.scaledMonthly += scaled;
+    }
 
     //Cache guilds responses for 5 minutes
     guild.expiresAt = Date.now() + 300000;

@@ -1,6 +1,6 @@
 import { Logger } from '@statsify/logger';
-import { statSync } from 'fs';
-import { readdir } from 'fs/promises';
+import { statSync } from 'node:fs';
+import { readdir } from 'node:fs/promises';
 import { CommandBuilder } from './command.builder';
 import type { CommandResolvable } from './command.resolvable';
 import { Container } from 'typedi';

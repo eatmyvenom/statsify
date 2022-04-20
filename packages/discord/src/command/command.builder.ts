@@ -18,10 +18,10 @@ export class CommandBuilder {
 
     const commandResolvable = new CommandResolvable(commandMetadata, target);
 
-    (commandMetadata.groups ?? []).forEach((group) => {
+    for (const group of commandMetadata.groups ?? []) {
       const groupResolvable = CommandBuilder.scan(Container.get(group));
       commandResolvable.addSubCommandGroup(groupResolvable);
-    });
+    }
 
     const methodNames = Object.getOwnPropertyNames(constructor.prototype);
 

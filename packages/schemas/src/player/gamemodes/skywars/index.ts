@@ -79,7 +79,7 @@ export class SkyWars {
       data.skywars_golden_boxes
     );
 
-    this.star = (data.levelFormatted || '⋆').replace(/[0-9]|[a-f]|k|r|l|§/g, '');
+    this.star = (data.levelFormatted || '⋆').replace(/\d|[a-f]|k|r|l|§/g, '');
     this.level = getLevel(this.xp);
     this.levelFormatted = getFormattedLevel(this.level, this.star);
     this.levelColor = getPresColor(this.level);

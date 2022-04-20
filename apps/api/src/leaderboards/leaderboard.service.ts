@@ -21,17 +21,17 @@ export class LeaderboardService {
 
     const id = instance[idField] as unknown as string;
 
-    fields
-      .filter((field) => remove || (instance[field] && typeof instance[field] === 'number'))
-      .forEach((field) => {
-        const value = instance[field];
+    for (const field of fields.filter(
+      (field) => remove || (instance[field] && typeof instance[field] === 'number')
+    )) {
+      const value = instance[field];
 
-        if (remove || value === 0 || Number.isNaN(value)) {
-          pipeline.zrem(`${name}.${field}`, id);
-        } else {
-          pipeline.zadd(`${name}.${field}`, value as string, id);
-        }
-      });
+      if (remove || value === 0 || Number.isNaN(value)) {
+        pipeline.zrem(`${name}.${field}`, id);
+      } else {
+        pipeline.zadd(`${name}.${field}`, value as string, id);
+      }
+    }
 
     return pipeline.exec();
   }
@@ -73,16 +73,15 @@ export class LeaderboardService {
 
     if (!selector) selector = LeaderboardScanner.getLeaderboardFields(constructor);
 
-    selector.forEach((field) => {
+    for (const field of selector) {
       pipeline.zscore(`${name}.${field}`, id);
-    });
+    }
 
     const scores = await pipeline.exec();
 
     const response: Record<string, number> = {};
 
-    for (let i = 0; i < selector.length; i++) {
-      const field = selector[i];
+    for (const [i, field] of selector.entries()) {
       const score = scores[i][1];
 
       if (score !== null) {

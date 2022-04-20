@@ -33,9 +33,9 @@ export const getLevelProgress = (xp: number): { current: number; total: number }
 
   const totalXptoNextLevel = xpToNextLvl[totalXp.findIndex((x) => x * 10 - xp > 0)] * 10;
 
-  for (let i = 0; i < xpToNextLvl.length; i++) {
-    if (currentLevelXp - xpToNextLvl[i] * 10 < 0) break;
-    currentLevelXp -= xpToNextLvl[i] * 10;
+  for (const element of xpToNextLvl) {
+    if (currentLevelXp - element * 10 < 0) break;
+    currentLevelXp -= element * 10;
   }
 
   return {
@@ -115,6 +115,6 @@ export const getPresColor = (star: number): Color => {
 
 export const parseKit = (kit = ''): string => {
   return kit
-    .substring(kit.lastIndexOf('solo_') !== -1 ? kit.lastIndexOf('solo_') + 5 : 0)
-    .substring(kit.lastIndexOf('team_') !== -1 ? kit.lastIndexOf('team_') + 5 : 0);
+    .slice(Math.max(0, kit.lastIndexOf('solo_') !== -1 ? kit.lastIndexOf('solo_') + 5 : 0))
+    .slice(Math.max(0, kit.lastIndexOf('team_') !== -1 ? kit.lastIndexOf('team_') + 5 : 0));
 };

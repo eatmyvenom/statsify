@@ -212,9 +212,9 @@ export class PlayerService {
     const fields = LeaderboardScanner.getLeaderboardFields(Player);
 
     //Remove all leaderboard fields for the mongo document
-    fields.forEach((field) => {
+    for (const field of fields) {
       if (serializedPlayer[field]) delete serializedPlayer[field];
-    });
+    }
 
     await this.playerModel.replaceOne({ uuid: player.uuid }, serializedPlayer, { upsert: true });
 
@@ -228,16 +228,12 @@ export class PlayerService {
   }
 
   private async resolveCachedDocument(mongoPlayer: Flatten<Player>, selector?: Selector<Player>) {
-    let redisSelector: string[] | undefined = undefined;
+    let redisSelector: string[] | undefined;
 
     //If a selector is provided only query the keys whose values are truthy
-    if (selector) {
-      redisSelector = Object.keys(selector).filter(
-        (key) => selector[key as keyof Selector<Player>]
-      );
-    } else {
-      redisSelector = LeaderboardScanner.getLeaderboardFields(Player);
-    }
+    redisSelector = selector
+      ? Object.keys(selector).filter((key) => selector[key as keyof Selector<Player>])
+      : LeaderboardScanner.getLeaderboardFields(Player);
 
     //Only select keys that are not in the mongo document
     redisSelector = redisSelector.filter((key) => !(key in mongoPlayer));

@@ -11,13 +11,13 @@ describe('basic math', () => {
     expect(sub(2, 1)).toBe(1);
     expect(sub(1, 2)).toBe(-1);
     expect(sub(1, 2, 3)).toBe(-4);
-    expect(sub(1, 2, undefined)).toBe(-1);
+    expect(sub(1, 2)).toBe(-1);
   });
 
   it('should calculate ratios', () => {
     expect(ratio(1, 2)).toBe(0.5);
     expect(ratio(1, 3)).toBe(0.33);
-    expect(ratio(1, undefined)).toBe(1);
+    expect(ratio(1)).toBe(1);
     expect(ratio(1, 0)).toBe(1);
   });
 });

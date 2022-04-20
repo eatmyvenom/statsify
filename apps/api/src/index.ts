@@ -4,7 +4,7 @@ import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { Logger } from '@statsify/logger';
 import { setGlobalOptions } from '@typegoose/typegoose';
-import { join } from 'path';
+import { join } from 'node:path';
 import { version } from '../../../package.json';
 import { AppModule } from './app.module';
 

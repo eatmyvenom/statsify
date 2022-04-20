@@ -61,7 +61,7 @@ export class PlayerController {
     const games = await this.hypixelService.getRecentGames(uuid);
 
     return {
-      success: !!games.length,
+      success: games.length > 0,
       games,
     };
   }

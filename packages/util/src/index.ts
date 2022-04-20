@@ -83,7 +83,7 @@ export const romanNumeral = (num: number): string => {
 
   while (i--) roman = (key[+digits.pop()! + i * 10] ?? '') + roman;
 
-  return Array(+digits.join('') + 1).join('M') + roman;
+  return Array.from({ length: +digits.join('') + 1 }).join('M') + roman;
 };
 
 export const prettify = (s: string): string => {
@@ -93,13 +93,13 @@ export const prettify = (s: string): string => {
   if (!['_', ' '].some((s) => newString.includes(s))) {
     newString =
       newString.charAt(0).toLowerCase() +
-      newString.substring(1).replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
+      newString.slice(1).replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
   }
 
   // Convert snake_case to Title Case
   return newString
     .replace(/_/g, ' ')
-    .replace(/\w\S*/g, (t) => t.charAt(0).toUpperCase() + t.substring(1).toLowerCase());
+    .replace(/\w\S*/g, (t) => t.charAt(0).toUpperCase() + t.slice(1).toLowerCase());
 };
 
 export const removeFormatting = (s: string): string => s.replace(/§./g, '');

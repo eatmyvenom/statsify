@@ -37,7 +37,7 @@ export class MetadataScanner {
       //Carry the metadata down to the children
       const subMetadataEntries = this.getMetadataEntries(value.type.type, path).map(
         ([path, { store, leaderboard, type }]) => {
-          if (!leaderboard.additionalFields || !leaderboard.additionalFields.length)
+          if (!leaderboard.additionalFields || leaderboard.additionalFields.length === 0)
             leaderboard.additionalFields = value.leaderboard.additionalFields;
 
           if (!leaderboard.extraDisplay) leaderboard.extraDisplay = value.leaderboard.extraDisplay;

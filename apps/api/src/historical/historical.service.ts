@@ -36,12 +36,12 @@ export class HistoricalService {
 
     const type = this.getType(date);
 
-    players.forEach(async ({ uuid }) => {
+    for (const { uuid } of players) {
       const player = await this.playerService.findOne(uuid, HypixelCache.LIVE);
 
       if (player) this.resetPlayer(player, type);
       else this.logger.error(`Could not reset player with uuid ${uuid}`);
-    });
+    }
   }
 
   public async findAndReset(tag: string, type: HistoricalType) {

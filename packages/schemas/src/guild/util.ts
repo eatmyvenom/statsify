@@ -14,8 +14,7 @@ export const getLevel = (exp: number) => {
   for (let i = 0; i <= 1000; i += 1) {
     let need = 0;
 
-    if (i >= required.length) need = required[required.length - 1];
-    else need = required[i];
+    need = i >= required.length ? required[required.length - 1] : required[i];
 
     if (exp - need < 0)
       return {

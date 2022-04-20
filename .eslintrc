@@ -2,12 +2,13 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2020,
-    "sourceType": "module",
-    "warnOnUnsupportedTypeScriptVersion": false,
-    "project": "./tsconfig.eslint.json"
+    "ecmaVersion": "latest"
   },
-  "ignorePatterns": ["apps/scripts/**"],
+  "env": {
+    "commonjs": true,
+    "es2022": true,
+    "node": true
+  },
   "plugins": ["@typescript-eslint"],
   "overrides": [
     {
@@ -25,7 +26,8 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:unicorn/recommended"
   ],
   "rules": {
     "@typescript-eslint/no-non-null-assertion": "off",
@@ -42,6 +44,17 @@
       }
     ],
     "default-param-last": "off",
+    "unicorn/prefer-module": 0,
+    "unicorn/filename-case": 0,
+    "unicorn/no-process-exit": 0,
+    "unicorn/number-literal-case": 0,
+    "unicorn/numeric-separators-style": 0,
+    "unicorn/prevent-abbreviations": 0,
+    "unicorn/no-nested-ternary": 0,
+    "unicorn/no-null": 0,
+    "unicorn/prefer-number-properties": 0,
+    "unicorn/prefer-spread": 0,
+    "unicorn/no-array-reduce": 0,
     "@typescript-eslint/default-param-last": ["error"],
     "@typescript-eslint/member-ordering": [
       "error",

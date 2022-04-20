@@ -7,7 +7,7 @@ import {
   Logger,
   UnauthorizedException,
 } from '@nestjs/common';
-import { createHash } from 'crypto';
+import { createHash } from 'node:crypto';
 import { uuid } from 'short-uuid';
 import { AuthRole } from './auth.role';
 
@@ -41,7 +41,9 @@ export class AuthService {
     pipeline.hincrby(`key:${hash}`, 'requests', weight);
     pipeline.expire(key, expirey / 1000);
 
-    const [, , requests] = await pipeline.exec();
+    const pipelineResponse = await pipeline.exec();
+
+    const requests = pipelineResponse[2];
 
     if (requests[0]) throw new InternalServerErrorException();
 

@@ -151,7 +151,7 @@ export class Logger implements LoggerService {
   ) {
     const color = this.getColorByLogLevel(logLevel);
 
-    messages.forEach((message) => {
+    for (const message of messages) {
       const output = typeof message === 'object' ? JSON.stringify(message) : message;
       const timeStamp = this.getTimeStamp();
 
@@ -160,6 +160,6 @@ export class Logger implements LoggerService {
       )} ${chalk.gray`${timeStamp}ms`} ${output}\n`;
 
       process[writeStreamType].write(computedMessage);
-    });
+    }
   }
 }

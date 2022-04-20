@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import { defaultLogLevels, logColors, Logger } from '../src';
-defaultLogLevels.forEach((logLevel) => {
+for (const logLevel of defaultLogLevels) {
   describe(`logging of ${logLevel}`, () => {
     it(`should ${logLevel}`, () => {
       const logger = new Logger(logLevel);
@@ -22,7 +22,7 @@ defaultLogLevels.forEach((logLevel) => {
       );
     });
   });
-});
+}
 
 describe(`logging levels`, () => {
   it('should ignore all log levels', () => {
@@ -33,9 +33,9 @@ describe(`logging levels`, () => {
     process.stdout.write = mock;
     process.stderr.write = mock;
 
-    defaultLogLevels.forEach((logLevel) => {
+    for (const logLevel of defaultLogLevels) {
       logger[logLevel]('message');
-    });
+    }
 
     expect(mock).not.toHaveBeenCalled();
   });
