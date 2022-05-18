@@ -1,5 +1,5 @@
+import { parseColor, RGBA } from '@statsify/mc-renderer';
 import type { CanvasRenderingContext2D, ImageData } from 'skia-canvas';
-import { parseColor, RGBA } from '../colors';
 import type * as JSX from '../jsx';
 
 export interface BoxBorderRadius {

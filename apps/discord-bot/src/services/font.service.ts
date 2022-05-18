@@ -1,5 +1,5 @@
 import { getMinecraftTexturePath } from '@statsify/assets';
-import { FontRenderer } from '@statsify/jsx';
+import { FontRenderer } from '@statsify/mc-renderer';
 import Container from 'typedi';
 
 const renderer = new FontRenderer();

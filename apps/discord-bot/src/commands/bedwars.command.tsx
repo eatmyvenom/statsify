@@ -1,5 +1,6 @@
 import { Command, CommandContext } from '@statsify/discord';
-import { FontRenderer, JSX } from '@statsify/jsx';
+import { JSX } from '@statsify/jsx';
+import { FontRenderer } from '@statsify/mc-renderer';
 import { Canvas } from 'skia-canvas';
 import Container from 'typedi';
 import { PlayerArgument } from '../arguments';

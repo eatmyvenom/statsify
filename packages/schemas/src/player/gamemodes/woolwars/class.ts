@@ -37,19 +37,19 @@ export class WoolWarsClass {
   public woolPlaced: number;
 
   public constructor(data: APIData) {
-    this.wins = data.wins;
-    this.gamesPlayed = data.games_played;
+    this.wins = data?.wins;
+    this.gamesPlayed = data?.games_played;
     this.losses = this.gamesPlayed - this.wins;
     this.wlr = ratio(this.wins, this.losses);
 
-    this.kills = data.kills;
-    this.deaths = data.deaths;
+    this.kills = data?.kills;
+    this.deaths = data?.deaths;
     this.kdr = ratio(this.kills, this.deaths);
 
-    this.assists = data.assists;
+    this.assists = data?.assists;
 
-    this.powerups = data.powerups_gotten;
-    this.blocksBroken = data.blocks_broken;
-    this.woolPlaced = data.wool_placed;
+    this.powerups = data?.powerups_gotten;
+    this.blocksBroken = data?.blocks_broken;
+    this.woolPlaced = data?.wool_placed;
   }
 }

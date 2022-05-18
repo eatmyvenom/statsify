@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
+import type { FontRenderer } from '@statsify/mc-renderer';
 import type { CanvasRenderingContext2D } from 'skia-canvas';
-import type { FontRenderer } from '../font';
 import type { IntrinsicElement } from './instrinsics';
 
 export interface BaseThemeContext {

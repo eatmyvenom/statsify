@@ -1459,6 +1459,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@statsify/mc-renderer@workspace:packages/mc-renderer":
+  version: 0.0.0-use.local
+  resolution: "@statsify/mc-renderer@workspace:packages/mc-renderer"
+  dependencies:
+    "@statsify/util": "workspace:^"
+    skia-canvas: ^0.9.29
+  languageName: unknown
+  linkType: soft
+
 "@statsify/schemas@workspace:^, @statsify/schemas@workspace:packages/schemas":
   version: 0.0.0-use.local
   resolution: "@statsify/schemas@workspace:packages/schemas"

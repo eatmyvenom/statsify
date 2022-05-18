@@ -1,5 +1,6 @@
 import { Command } from '@statsify/discord';
-import { FontRenderer, JSX } from '@statsify/jsx';
+import { JSX } from '@statsify/jsx';
+import { FontRenderer } from '@statsify/mc-renderer';
 import { Canvas } from 'skia-canvas';
 import { Container as ClassContainer } from 'typedi';
 import { Header, HeaderBody, Table } from '../components';

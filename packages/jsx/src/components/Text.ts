@@ -1,6 +1,6 @@
+import type { TextNode } from '@statsify/mc-renderer';
+import { FontRenderer } from '@statsify/mc-renderer';
 import Container from 'typedi';
-import { FontRenderer } from '../font';
-import type { TextNode } from '../font/tokens';
 import { useChildren } from '../hooks';
 import type * as JSX from '../jsx';
 
