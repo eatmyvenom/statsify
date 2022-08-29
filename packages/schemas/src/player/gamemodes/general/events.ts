@@ -38,7 +38,7 @@ export class Events {
   @Field({ leaderboard: { name: "Summer 2022" } })
   public summer2022: Event;
 
-  @Field()
+  @Field({ leaderboard: { historical: false } })
   public silver: number;
 
   public constructor(data: APIData = {}) {
