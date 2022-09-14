@@ -1,0 +1,31 @@
+{
+  "name": "@statsify/skinview3d",
+  "version": "0.0.0",
+  "description": "Fork of bs-community/skinview3d - Three.js powered Minecraft skin viewer",
+  "main": "dist/index.js",
+  "types": "src/index.ts",
+  "scripts": {
+    "bundle": "rollup -c",
+    "build": "yarn bundle && swc src  --config-file ../../.swcrc --out-dir dist",
+    "test:types": "tsc --noEmit",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "lint": "TIMING=1 eslint './{src,tests}/**/*.{ts,tsx,js,jsx}' --fix"
+  },
+  "author": "Haowei Wen <yushijinhun@gmail.com> (https://github.com/yushijinhun)",
+  "contributors": [
+    "Sean Boult <hacksore@mcskinsearch.com> (https://github.com/Hacksore)",
+    "Pig Fang <g-plane@hotmail.com> (https://github.com/g-plane)",
+    "printempw <h@prinzeugen.net> (https://github.com/printempw)",
+    "Kent Rasmussen <hyprkookeez@gmail.com> (https://github.com/earthiverse)"
+  ],
+  "dependencies": {
+    "@rollup/plugin-node-resolve": "^14.1.0",
+    "@rollup/plugin-typescript": "^8.5.0",
+    "@types/three": "^0.142.0",
+    "canvas": "^2.9.3",
+    "node-canvas-webgl": "^0.2.7",
+    "rollup": "^2.79.0",
+    "three": "^0.142.0"
+  }
+}

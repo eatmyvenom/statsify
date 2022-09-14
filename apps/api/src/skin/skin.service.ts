@@ -13,12 +13,15 @@ import { Injectable } from "@nestjs/common";
 import { ReturnModelType } from "@typegoose/typegoose";
 import { Skin } from "@statsify/schemas";
 import { catchError, lastValueFrom, map, of } from "rxjs";
-import { getMinecraftTexturePath, importAsset } from "@statsify/assets";
+import { getMinecraftTexturePath } from "@statsify/assets";
 import { loadImage } from "@statsify/rendering";
+import { renderSkinOptions } from "@statsify/skinview3d";
 
 @Injectable()
 export class SkinService {
-  private skinRenderer: ((skin: Image, slim: boolean) => Promise<Buffer>) | null;
+  private skinRenderer:
+    | ((skin: Image, options: renderSkinOptions) => Promise<Buffer>)
+    | null;
 
   public constructor(
     private readonly httpService: HttpService,
@@ -67,7 +70,7 @@ export class SkinService {
       return canvas.toBuffer("png");
     }
 
-    return renderer(skin, slim);
+    return renderer(skin, { slim });
   }
 
   public async getSkin(uuid: string) {
@@ -86,7 +89,7 @@ export class SkinService {
       return this.resolveSkin(skin?.skinUrl, skin?.slim);
     }
 
-    //Cache for  6 hours
+    //Cache for 6 hours
     skinData.expiresAt = Date.now() + 2.16e7;
 
     await this.skinModel.replaceOne({ uuid }, skinData, { upsert: true }).lean().exec();
@@ -126,10 +129,7 @@ export class SkinService {
   private async getSkinRenderer() {
     if (this.skinRenderer) return this.skinRenderer;
 
-    const renderer = await importAsset<any>("skin-renderer");
-
-    if (!renderer) return null;
-
+    const renderer = await import("@statsify/skinview3d");
     this.skinRenderer = renderer.renderSkin;
 
     return this.skinRenderer;

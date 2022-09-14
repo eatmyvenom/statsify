@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "bundle": ["bundle.ts"]
+    }
+  },
+  "include": ["src", "index.js", "bundle.ts"]
+}

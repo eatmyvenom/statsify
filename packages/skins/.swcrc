@@ -15,6 +15,10 @@
         }
       }
     },
+    "baseUrl": ".",
+    "paths": {
+      "bundle": ["bundles/bundle.js"]
+    },
     "target": "es2022",
     "keepClassNames": true,
     "loose": false,
