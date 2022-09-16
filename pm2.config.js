@@ -51,7 +51,15 @@ module.exports = {
     },
     {
       name: "leaderboard-limiting",
-      args: `scripts limit-redis start ${with_color}`,
+      args: `scripts limit-redis ${with_color}`,
+      script,
+      cron_restart,
+      exp_backoff_restart_delay,
+      env,
+    },
+    {
+      name: "historical-resetting",
+      args: `scripts historical-reset ${with_color}`,
       script,
       cron_restart,
       exp_backoff_restart_delay,
