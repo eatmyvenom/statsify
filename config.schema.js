@@ -21,6 +21,7 @@ module.exports = {
   api: {
     port: 3000,
     mediaRoot: "",
+    provideSkins: false,
     ignoreAuth: false,
   },
   discordBot: {

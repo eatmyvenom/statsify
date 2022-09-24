@@ -13,6 +13,7 @@ import { Injectable } from "@nestjs/common";
 import { ReturnModelType } from "@typegoose/typegoose";
 import { Skin } from "@statsify/schemas";
 import { catchError, lastValueFrom, map, of } from "rxjs";
+import { config } from "@statsify/util";
 import { getMinecraftTexturePath } from "@statsify/assets";
 import { loadImage } from "@statsify/rendering";
 import { renderSkinOptions } from "@statsify/skinview3d";
@@ -127,6 +128,7 @@ export class SkinService {
   }
 
   private async getSkinRenderer() {
+    if (!config("api.provideSkins", { default: false })) return null;
     if (this.skinRenderer) return this.skinRenderer;
 
     const renderer = await import("@statsify/skinview3d");

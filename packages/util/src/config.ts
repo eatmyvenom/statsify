@@ -47,6 +47,10 @@ export interface Config {
      */
     mediaRoot: string;
     /**
+     * Whether to generate skins locally or to use crafatar
+     */
+    provideSkins?: boolean;
+    /**
      * Whether or not to ignore authentication for the Statsify API
      */
     ignoreAuth?: boolean;
