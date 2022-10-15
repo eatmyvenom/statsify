@@ -14,7 +14,6 @@
  * https://github.com/Statsify/statsify/blob/main/LICENSE
  */
 
-import { AsyncTask, SimpleIntervalJob } from "toad-scheduler";
 import {
   CurrentHistoricalType,
   HistoricalTimes,
@@ -50,7 +49,6 @@ type RawHistoricalResponse = [newPlayer: Player, oldPlayer: Player, isNew?: bool
 @Injectable()
 export class HistoricalService {
   private readonly logger = new Logger("HistoricalService");
-  private readonly job: SimpleIntervalJob;
 
   public constructor(
     @Inject(forwardRef(() => PlayerService))
@@ -63,34 +61,7 @@ export class HistoricalService {
     @InjectModel(LastDay) private readonly lastDayModel: PlayerModel,
     @InjectModel(LastWeek) private readonly lastWeekModel: PlayerModel,
     @InjectModel(LastMonth) private readonly lastMonthModel: PlayerModel
-  ) {
-    const task = new AsyncTask("historicalReset", this.resetPlayers.bind(this));
-    this.job = new SimpleIntervalJob({ minutes: 1 }, task);
-    this.job.start();
-  }
-
-  public async resetPlayers() {
-    const minute = this.getMinute();
-
-    const players = await this.dailyModel
-      .find({ resetMinute: minute })
-      .select({ uuid: true })
-      .lean()
-      .exec();
-
-    const type = this.getType();
-
-    players.forEach(async ({ uuid }) => {
-      const player = await this.playerService.get(uuid, HypixelCache.LIVE);
-
-      if (player) {
-        player.resetMinute = minute;
-        await this.reset(player, type);
-      } else {
-        this.logger.error(`Could not reset player with uuid ${uuid}`);
-      }
-    });
-  }
+  ) {}
 
   public async getAndReset(tag: string, type: HistoricalType, time?: number) {
     const player = await this.playerService.get(tag, HypixelCache.LIVE);
@@ -108,13 +79,9 @@ export class HistoricalService {
    * @returns The flattened player data
    */
   public async reset(player: Player, resetType: HistoricalType) {
-    const isMonthly =
-      resetType === HistoricalTimes.MONTHLY || resetType === HistoricalTimes.LAST_MONTH;
+    const isMonthly = resetType === HistoricalTimes.MONTHLY;
 
-    const isWeekly =
-      resetType === HistoricalTimes.WEEKLY ||
-      resetType === HistoricalTimes.LAST_WEEK ||
-      isMonthly;
+    const isWeekly = resetType === HistoricalTimes.WEEKLY || isMonthly;
 
     const flatPlayer = flatten(player);
 
@@ -279,14 +246,5 @@ export class HistoricalService {
   private getMinute() {
     const date = new Date();
     return date.getHours() * 60 + date.getMinutes();
-  }
-  private getType() {
-    const date = new Date();
-
-    return date.getDate() === 1
-      ? HistoricalTimes.MONTHLY
-      : date.getDay() === 1
-      ? HistoricalTimes.WEEKLY
-      : HistoricalTimes.DAILY;
   }
 }

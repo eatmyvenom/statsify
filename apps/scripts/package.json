@@ -10,6 +10,7 @@
     "purge": "node src/purge.js",
     "rank-emojis": "node src/rank-emojis.js",
     "limit-redis": "node src/limit-redis.js",
+    "historical-reset": "node src/historical-reset.js",
     "command-chars": "node --no-warnings src/command-chars.js"
   },
   "dependencies": {
