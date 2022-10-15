@@ -7,9 +7,6 @@
   "scripts": {
     "bundle": "rollup -c",
     "build": "yarn bundle && swc src  --config-file ../../.swcrc --out-dir dist",
-    "test:types": "tsc --noEmit",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
     "lint": "TIMING=1 eslint './{src,tests}/**/*.{ts,tsx,js,jsx}' --fix"
   },
   "author": "Haowei Wen <yushijinhun@gmail.com> (https://github.com/yushijinhun)",

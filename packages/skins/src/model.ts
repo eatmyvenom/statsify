@@ -6,6 +6,15 @@
  * https://github.com/Statsify/statsify/blob/main/LICENSE
  */
 
+/*
+ * Using bundling gives weird results with type checking,
+ * it is therefore disabled for this file, be assured all
+ * the types here are correct :)!
+ */
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import {
   BoxGeometry,
   DoubleSide,
