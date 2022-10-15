@@ -2,6 +2,7 @@ config.js
 config.json
 dist
 node_modules
+bundles
 .turbo
 package-lock.json
 .yarn/install-state.gz
