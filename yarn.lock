@@ -1810,6 +1810,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@statsify/hypixel-api-client@workspace:packages/hypixel-api-client":
+  version: 0.0.0-use.local
+  resolution: "@statsify/hypixel-api-client@workspace:packages/hypixel-api-client"
+  dependencies:
+    "@statsify/util": "workspace:^"
+    axios: ^0.27.2
+  languageName: unknown
+  linkType: soft
+
 "@statsify/logger@workspace:^, @statsify/logger@workspace:packages/logger":
   version: 0.0.0-use.local
   resolution: "@statsify/logger@workspace:packages/logger"
