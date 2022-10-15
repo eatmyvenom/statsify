@@ -15,60 +15,15 @@ import {
   UHCDuels,
 } from "./mode";
 import { Field } from "../../../metadata";
-import { GameModes, IGameModes } from "../../../game";
+import { GameModes } from "../../../game";
+import {
+  GameType,
+  GetMetadataModes,
+  Mode,
+  StatsifyApiModes,
+} from "../../../metadata/GameType";
 
-export const DUELS_MODES = new GameModes([
-  { api: "overall" },
-  { api: "arena", hypixel: "DUELS_DUEL_ARENA" },
-  { api: "blitzsg", hypixel: "DUELS_BLITZ_DUEL", formatted: "BlitzSG" },
-  { api: "bow", hypixel: "DUELS_BOW_DUEL" },
-  { api: "bowSpleef", hypixel: "DUELS_BOWSPLEEF_DUEL" },
-  { api: "boxing", hypixel: "DUELS_BOXING_DUEL" },
-  { api: "bridge" },
-  { api: "classic", hypixel: "DUELS_CLASSIC_DUEL" },
-  { api: "combo", hypixel: "DUELS_COMBO_DUEL" },
-  { api: "megawalls", formatted: "MegaWalls" },
-  { api: "nodebuff", hypixel: "DUELS_POTION_DUEL", formatted: "NoDebuff" },
-  { api: "op", formatted: "OP" },
-  { api: "parkour", hypixel: "DUELS_PARKOUR_EIGHT" },
-  { api: "skywars", formatted: "SkyWars" },
-  { api: "sumo", hypixel: "DUELS_SUMO_DUEL" },
-  { api: "uhc", formatted: "UHC" },
-
-  { hypixel: "DUELS_MW_DUEL", formatted: "MegaWalls Solo" },
-  { hypixel: "DUELS_MW_DOUBLES", formatted: "MegaWalls Doubles" },
-  { hypixel: "DUELS_UHC_DUEL", formatted: "UHC Solo" },
-  { hypixel: "DUELS_UHC_DOUBLES", formatted: "UHC Doubles" },
-  { hypixel: "DUELS_UHC_FOUR", formatted: "UHC Fours" },
-  { hypixel: "DUELS_UHC_MEETUP", formatted: "UHC Deathmatch" },
-  { hypixel: "DUELS_SW_DUEL", formatted: "SkyWars Solo" },
-  { hypixel: "DUELS_SW_DOUBLES", formatted: "SkyWars Doubles" },
-  { hypixel: "DUELS_OP_DUEL", formatted: "OP Solo" },
-  { hypixel: "DUELS_OP_DOUBLES", formatted: "OP Doubles" },
-  { hypixel: "DUELS_BRIDGE_DUEL", formatted: "Bridge Solo" },
-  { hypixel: "DUELS_BRIDGE_DOUBLES", formatted: "Bridge Doubles" },
-  { hypixel: "DUELS_BRIDGE_THREES", formatted: "Bridge Threes" },
-  { hypixel: "DUELS_BRIDGE_FOUR", formatted: "Bridge Fours" },
-  { hypixel: "DUELS_BRIDGE_2V2V2V2", formatted: "Bridge 2v2v2v2" },
-  { hypixel: "DUELS_BRIDGE_3V3V3V3", formatted: "Bridge 3v3v3v3" },
-  { hypixel: "DUELS_CAPTURE_THREES", formatted: "Bridge CTF" },
-]);
-
-export type DuelsModes = IGameModes<typeof DUELS_MODES>;
-
-export const BRIDGE_MODES = new GameModes([
-  { api: "overall" },
-  { api: "solo" },
-  { api: "doubles" },
-  { api: "threes" },
-  { api: "fours" },
-  { api: "2v2v2v2" },
-  { api: "3v3v3v3" },
-  { api: "ctf", formatted: "CTF" },
-]);
-
-export type BridgeModes = IGameModes<typeof BRIDGE_MODES>;
-
+@GameType()
 export class Duels {
   @Field({ store: { default: 300 }, leaderboard: { enabled: false } })
   public pingRange: number;
@@ -85,12 +40,15 @@ export class Duels {
   })
   public lootChests: number;
 
+  @Mode()
   @Field({ leaderboard: { extraDisplay: "this.overall.titleFormatted" } })
   public overall: SinglePVPDuelsGameMode;
 
+  @Mode("DUELS_DUEL_ARENA")
   @Field({ leaderboard: { extraDisplay: "this.arena.titleFormatted" } })
   public arena: SingleDuelsGameMode;
 
+  @Mode("DUELS_BLITZ_DUEL", "BlitzSG")
   @Field({
     leaderboard: {
       fieldName: "BlitzSG",
@@ -99,24 +57,31 @@ export class Duels {
   })
   public blitzsg: SinglePVPDuelsGameMode;
 
+  @Mode("DUELS_BOW_DUEL")
   @Field({ leaderboard: { extraDisplay: "this.bow.titleFormatted" } })
   public bow: SinglePVPDuelsGameMode;
 
+  @Mode("DUELS_BOWSPLEEF_DUEL")
   @Field({ leaderboard: { extraDisplay: "this.bowSpleef.titleFormatted" } })
   public bowSpleef: SingleDuelsGameMode;
 
+  @Mode("DUELS_BOXING_DUEL")
   @Field({ leaderboard: { extraDisplay: "this.boxing.titleFormatted" } })
   public boxing: SinglePVPDuelsGameMode;
 
+  @Mode()
   @Field({ leaderboard: { extraDisplay: "this.bridge.titleFormatted" } })
   public bridge: BridgeDuels;
 
+  @Mode("DUELS_CLASSIC_DUEL")
   @Field({ leaderboard: { extraDisplay: "this.classic.titleFormatted" } })
   public classic: SinglePVPDuelsGameMode;
 
+  @Mode("DUELS_COMBO_DUEL")
   @Field({ leaderboard: { extraDisplay: "this.combo.titleFormatted" } })
   public combo: SinglePVPDuelsGameMode;
 
+  @Mode("", "MegaWalls")
   @Field({
     leaderboard: {
       fieldName: "MegaWalls",
@@ -125,6 +90,7 @@ export class Duels {
   })
   public megawalls: MultiPVPDuelsGameMode;
 
+  @Mode("DUELS_POTION_DUEL", "NoDebuff")
   @Field({
     leaderboard: {
       fieldName: "NoDebuff",
@@ -133,14 +99,17 @@ export class Duels {
   })
   public nodebuff: SinglePVPDuelsGameMode;
 
+  @Mode("", "OP")
   @Field({
     leaderboard: { fieldName: "OP", extraDisplay: "this.op.titleFormatted" },
   })
   public op: MultiPVPDuelsGameMode;
 
+  @Mode("DUELS_PARKOUR_EIGHT")
   @Field({ leaderboard: { extraDisplay: "this.parkour.titleFormatted" } })
   public parkour: SingleDuelsGameMode;
 
+  @Mode("", "SkyWars")
   @Field({
     leaderboard: {
       fieldName: "SkyWars",
@@ -149,9 +118,11 @@ export class Duels {
   })
   public skywars: MultiPVPDuelsGameMode;
 
+  @Mode("DUELS_SUMO_DUEL")
   @Field({ leaderboard: { extraDisplay: "this.sumo.titleFormatted" } })
   public sumo: SinglePVPDuelsGameMode;
 
+  @Mode("", "UHC")
   @Field({
     leaderboard: { fieldName: "UHC", extraDisplay: "this.uhc.titleFormatted" },
   })
@@ -183,5 +154,29 @@ export class Duels {
     this.lootChests = data.duels_chests;
   }
 }
+
+export type DuelsModes = StatsifyApiModes<Duels>;
+
+export const DUELS_MODES = new GameModes<DuelsModes>([
+  ...GetMetadataModes(Duels),
+
+  { hypixel: "DUELS_MW_DUEL", formatted: "MegaWalls Solo" },
+  { hypixel: "DUELS_MW_DOUBLES", formatted: "MegaWalls Doubles" },
+  { hypixel: "DUELS_UHC_DUEL", formatted: "UHC Solo" },
+  { hypixel: "DUELS_UHC_DOUBLES", formatted: "UHC Doubles" },
+  { hypixel: "DUELS_UHC_FOUR", formatted: "UHC Fours" },
+  { hypixel: "DUELS_UHC_MEETUP", formatted: "UHC Deathmatch" },
+  { hypixel: "DUELS_SW_DUEL", formatted: "SkyWars Solo" },
+  { hypixel: "DUELS_SW_DOUBLES", formatted: "SkyWars Doubles" },
+  { hypixel: "DUELS_OP_DUEL", formatted: "OP Solo" },
+  { hypixel: "DUELS_OP_DOUBLES", formatted: "OP Doubles" },
+  { hypixel: "DUELS_BRIDGE_DUEL", formatted: "Bridge Solo" },
+  { hypixel: "DUELS_BRIDGE_DOUBLES", formatted: "Bridge Doubles" },
+  { hypixel: "DUELS_BRIDGE_THREES", formatted: "Bridge Threes" },
+  { hypixel: "DUELS_BRIDGE_FOUR", formatted: "Bridge Fours" },
+  { hypixel: "DUELS_BRIDGE_2V2V2V2", formatted: "Bridge 2v2v2v2" },
+  { hypixel: "DUELS_BRIDGE_3V3V3V3", formatted: "Bridge 3v3v3v3" },
+  { hypixel: "DUELS_CAPTURE_THREES", formatted: "Bridge CTF" },
+]);
 
 export * from "./mode";
