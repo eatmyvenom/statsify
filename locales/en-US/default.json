@@ -689,7 +689,8 @@
       "goldTrophy": "Gold Trophy Progress",
       "kill": "Kill Progress",
       "score": "Score Progress",
-      "win": "Win Progress"
+      "win": "Win Progress",
+      "gold": "Gold Progress"
     },
     "quests": "Quests",
     "ranksGifted": "Ranks Gifted",

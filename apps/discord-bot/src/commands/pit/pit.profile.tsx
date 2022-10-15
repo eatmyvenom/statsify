@@ -14,6 +14,7 @@ import {
   SidebarItem,
   Table,
   formatProgression,
+  lineXpBar,
 } from "#components";
 import { FormattedGame } from "@statsify/schemas";
 import { formatTime } from "@statsify/util";
@@ -32,11 +33,30 @@ export const PitProfile = ({
   const { pit } = player.stats;
 
   const sidebar: SidebarItem[] = [
+    [t("stats.exp"), t(pit.exp), "§b"],
     [t("stats.gold"), t(pit.gold), "§6"],
     [t("stats.contracts"), t(pit.contractsCompleted), "§a"],
     [t("stats.renown"), t(pit.renown), "§e"],
     [t("stats.bounty"), t(pit.bounty), "§6"],
   ];
+
+  const expProgression = formatProgression({
+    t,
+    label: t("stats.progression.exp"),
+    progression: pit.expProgression,
+    currentLevel: pit.levelFormatted,
+    nextLevel: pit.nextLevelFormatted,
+    renderXp: lineXpBar("§b"),
+  });
+
+  const goldProgression = formatProgression({
+    t,
+    label: t("stats.progression.gold"),
+    progression: pit.goldProgression,
+    currentLevel: " ",
+    nextLevel: "",
+    renderXp: lineXpBar("§6"),
+  });
 
   return (
     <Container background={background}>
@@ -45,14 +65,9 @@ export const PitProfile = ({
         skin={skin}
         time={time}
         title={`§l${FormattedGame.PIT} §fStats`}
-        description={`§7${t("stats.level")}: ${pit.levelFormatted}\n${formatProgression({
-          t,
-          label: t("stats.progression.exp"),
-          progression: pit.progression,
-          currentLevel: pit.levelFormatted,
-          nextLevel: pit.nextLevelFormatted,
-          showLevel: true,
-        })}`}
+        description={`§7${t("stats.level")}: ${
+          pit.levelFormatted
+        }\n${goldProgression}\n${expProgression}`}
         sidebar={sidebar}
         badge={badge}
       />
@@ -81,7 +96,7 @@ export const PitProfile = ({
       </Table.table>
       <Historical.progression
         time={time}
-        progression={pit.progression}
+        progression={pit.expProgression}
         current={pit.levelFormatted}
         next={pit.nextLevelFormatted}
         t={t}

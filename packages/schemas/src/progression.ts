@@ -24,7 +24,7 @@ export class Progression {
 
     if (max) {
       this.max = max;
-      this.percent = ratio(current, max);
+      this.percent = ratio(Math.min(current, max), max);
     } else {
       this.percent = 1;
     }

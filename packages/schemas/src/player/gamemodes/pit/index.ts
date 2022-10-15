@@ -11,7 +11,14 @@ import { Field } from "../../../metadata";
 import { GameModes, IGameModes } from "../../../game";
 import { Progression } from "../../../progression";
 import { add, ratio } from "@statsify/math";
-import { getBounty, getLevel, getLevelFormatted, getPres, getPresReq } from "./util";
+import {
+  getBounty,
+  getLevel,
+  getLevelFormatted,
+  getPres,
+  getPresExpReq,
+  getPresGoldReq,
+} from "./util";
 
 export const PIT_MODES = new GameModes([
   { api: "overall", hypixel: "PIT", formatted: "Pit" },
@@ -56,7 +63,10 @@ export class Pit {
   public nextLevelFormatted: string;
 
   @Field()
-  public progression: Progression;
+  public expProgression: Progression;
+
+  @Field()
+  public goldProgression: Progression;
 
   @Field({
     leaderboard: { additionalFields: ["this.goldEarned"] },
@@ -69,6 +79,9 @@ export class Pit {
     historical: { additionalFields: [] },
   })
   public goldEarned: number;
+
+  @Field({ leaderboard: { enabled: false }, historical: { enabled: false } })
+  public currentPresGold: number;
 
   @Field({ historical: { enabled: false } })
   public renown: number;
@@ -131,9 +144,16 @@ export class Pit {
 
     this.trueLevel = prestige * 120 + level;
 
-    this.progression = new Progression(
-      this.exp - getPresReq(prestige - 1),
-      getPresReq(prestige) - getPresReq(prestige - 1)
+    this.currentPresGold = profile[`cash_during_prestige_${prestige}`] ?? 0;
+
+    this.expProgression = new Progression(
+      this.exp - getPresExpReq(prestige - 1),
+      getPresExpReq(prestige) - getPresExpReq(prestige - 1)
+    );
+
+    this.goldProgression = new Progression(
+      this.currentPresGold,
+      getPresGoldReq(prestige)
     );
 
     this.levelFormatted = getLevelFormatted(level, prestige);
