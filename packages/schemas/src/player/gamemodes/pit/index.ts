@@ -6,12 +6,13 @@
  * https://github.com/Statsify/statsify/blob/main/LICENSE
  */
 
-import { APIData, formatTime } from "@statsify/util";
 import { Field } from "../../../metadata";
 import { GameModes } from "../../../game";
 import { GameType, GetMetadataModes, StatsifyApiModes } from "../../../metadata/GameType";
+import { HypixelPitProfile, HypixelPitStatsPTL } from "@statsify/hypixel-api-client";
 import { Progression } from "../../../progression";
 import { add, ratio } from "@statsify/math";
+import { formatTime } from "@statsify/util";
 import {
   getBounty,
   getLevel,
@@ -129,7 +130,7 @@ export class Pit {
   @Field()
   public joins: number;
 
-  public constructor(profile: APIData, data: APIData) {
+  public constructor(profile: HypixelPitProfile, data: HypixelPitStatsPTL) {
     this.exp = profile.xp ?? 0;
     this.gold = profile.cash;
     this.renown = profile.renown;

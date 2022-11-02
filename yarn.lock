@@ -1810,7 +1810,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@statsify/hypixel-api-client@workspace:packages/hypixel-api-client":
+"@statsify/hypixel-api-client@workspace:^, @statsify/hypixel-api-client@workspace:packages/hypixel-api-client":
   version: 0.0.0-use.local
   resolution: "@statsify/hypixel-api-client@workspace:packages/hypixel-api-client"
   dependencies:
@@ -1854,6 +1854,7 @@ __metadata:
   resolution: "@statsify/schemas@workspace:packages/schemas"
   dependencies:
     "@nestjs/swagger": ^6.0.1
+    "@statsify/hypixel-api-client": "workspace:^"
     "@statsify/logger": "workspace:^"
     "@statsify/math": "workspace:^"
     "@statsify/util": "workspace:^"
