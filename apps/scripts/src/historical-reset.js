@@ -43,7 +43,7 @@ function getMinute() {
 
 async function resetPlayers(minute) {
   if (!minute) {
-    let lastCompletedMinute = await Number(redis.get("completedMinue"));
+    let lastCompletedMinute = await Number(redis.get("completedMinute"));
 
     if (!Number.isNaN(lastCompletedMinute) && lastCompletedMinute < minute - 1) {
       for (let i = 0; i < minute - 1; i++) {
